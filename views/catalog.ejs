@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Catalog</title>
+</head>
+<body>
+    <h1>Library Catalog</h1>
+    <form method="GET" action="/catalog">
+        <input type="text" name="author" placeholder="Author" />
+        <input type="text" name="genre" placeholder="Genre" />
+        <input type="number" name="year" placeholder="Year" />
+        <button type="submit">Filter</button>
+    </form>
+    <ul>
+        <% books.forEach(book => { %>
+            <li>
+                <strong><%= book.title %></strong> by <%= book.author %> 
+                (<%= book.genre %>, <%= book.year %>) 
+                - $<%= book.price %> 
+                <% if (book.isAvailable) { %>
+                    <form action="/book/<%= book._id %>/rent" method="POST" style="display:inline;">
+                        <button type="submit">Rent</button>
+                    </form>
+                <% } %>
+                <form action="/book/<%= book._id %>/buy" method="POST" style="display:inline;">
+                    <button type="submit">Buy</button>
+                </form>
+            </li>
+        <% }); %>
+    </ul>
+</body>
+</html>
